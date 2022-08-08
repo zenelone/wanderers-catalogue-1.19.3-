@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "wandererscatalogue",
+  "version": "${version}",
+  "name": "Wanderers Catalogue",
+  "description": "Reliable Trading Services.",
+  "authors": [
+    "AmyMialee"
+  ],
+  "contact": {
+    "homepage": "https://github.com/AmyMialeeMods/wanderers-catalogue",
+    "issues": "https://github.com/AmyMialeeMods/wanderers-catalogue/issues"
+  },
+  "license": "All-Rights-Reserved",
+  "icon": "assets/wandererscatalogue/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "amymialee.wandererscatalogue.WanderersCatalogueClient"
+    ],
+    "main": [
+      "amymialee.wandererscatalogue.WanderersCatalogue"
+    ]
+  },
+  "mixins": [
+    "wandererscatalogue.mixins.json"
+  ],
+  "depends": {
+    "fabric": "*"
+  },
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.discord": "http://discord.amymialee.xyz/"
+      }
+    }
+  }
+}
