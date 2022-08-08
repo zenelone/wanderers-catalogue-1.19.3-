@@ -5,7 +5,7 @@ Using this Catalogue you can choose an item from their collection and next time 
 
 <img src="https://github.com/AmyMialeeMods/wanderers-catalogue/raw/main/assets/catalogue.png" alt="Using The Catalogue.">  
 
-To add Piercing Paxels to your project as a dependency you need to add the following to your `build.gradle`:
+To add Wanderer's Catalogue to your project as a dependency you need to add the following to your `build.gradle`:
 ```gradle
 repositories {
 	maven { url = "https://maven.willbl.dev/releases" }
