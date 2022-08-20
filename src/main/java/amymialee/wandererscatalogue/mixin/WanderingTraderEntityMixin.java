@@ -39,7 +39,7 @@ public abstract class WanderingTraderEntityMixin extends MerchantEntityMixin {
     public void setCustomer(PlayerEntity customer, CallbackInfo ci) {
         if (customer instanceof PlayerOrderWrapper wrapper && wrapper.getPlayerOrder() >= 0 && !this.dataTracker.get(INTERACTED)) {
             this.dataTracker.set(INTERACTED, true);
-            this.getOffers().add(0, new TradeOffer(WanderersCatalogue.availableOffers.get(wrapper.getPlayerOrder()).toNbt()));
+            this.getOffers().add(0, new TradeOffer(WanderersCatalogue.getAvailableOffers(customer).get(wrapper.getPlayerOrder()).toNbt()));
         }
         super.setCustomer(customer, ci);
     }

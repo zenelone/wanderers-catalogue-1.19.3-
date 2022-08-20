@@ -4,25 +4,23 @@ import amymialee.wandererscatalogue.WanderersCatalogue;
 import amymialee.wandererscatalogue.util.PlayerOrderWrapper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.RecipeType;
 import net.minecraft.screen.Property;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.village.TradeOffer;
-import net.minecraft.world.World;
 
 import java.util.List;
 
 public class CatalogueScreenHandler extends ScreenHandler {
     private final Property selectedRecipe;
+    private final PlayerInventory playerInventory;
 
     public CatalogueScreenHandler(int syncId, PlayerInventory playerInventory) {
         super(WanderersCatalogue.CATALOGUE_SCREEN_HANDLER, syncId);
         this.selectedRecipe = Property.create();
+        this.playerInventory = playerInventory;
         if (playerInventory.player instanceof PlayerOrderWrapper wrapper) {
             this.selectedRecipe.set(wrapper.getPlayerOrder());
         }
@@ -68,10 +66,10 @@ public class CatalogueScreenHandler extends ScreenHandler {
     }
 
     public int getAvailableOfferCount() {
-        return WanderersCatalogue.availableOffers.size();
+        return getAvailableOffers().size();
     }
 
     public List<TradeOffer> getAvailableOffers() {
-        return WanderersCatalogue.availableOffers;
+        return WanderersCatalogue.getAvailableOffers(this.playerInventory.player);
     }
 }

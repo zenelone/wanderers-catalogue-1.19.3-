@@ -3,6 +3,7 @@ package amymialee.wandererscatalogue;
 import amymialee.wandererscatalogue.screens.CatalogueScreenHandler;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.screen.ScreenHandlerType;
@@ -19,7 +20,7 @@ import java.util.List;
 @SuppressWarnings("unused")
 public class WanderersCatalogue implements ModInitializer {
     public static final String MOD_ID = "wandererscatalogue";
-    public static final List<TradeOffer> availableOffers = fillRecipes();
+    private static List<TradeOffer> availableOffers;
 
     public static final ScreenHandlerType<CatalogueScreenHandler> CATALOGUE_SCREEN_HANDLER = Registry.register(Registry.SCREEN_HANDLER, "catalogue", new ScreenHandlerType<>(CatalogueScreenHandler::new));
     public static final Item WANDERERS_CATALOGUE = Registry.register(Registry.ITEM, id("catalogue"), new CatalogueItem(new FabricItemSettings().rarity(Rarity.RARE).group(ItemGroup.TOOLS)));
@@ -27,13 +28,21 @@ public class WanderersCatalogue implements ModInitializer {
     @Override
     public void onInitialize() {}
 
-    protected static ArrayList<TradeOffer> fillRecipes() {
+    public static List<TradeOffer> getAvailableOffers(Entity entity) {
+        if (availableOffers != null) {
+            return availableOffers;
+        }
+        fillRecipes(entity);
+        return availableOffers;
+    }
+
+    protected static void fillRecipes(Entity entity) {
         ArrayList<TradeOffer> offers = new ArrayList<>();
         Random random = Random.create();
         TradeOffers.Factory[] factory = TradeOffers.WANDERING_TRADER_TRADES.get(1);
         if (factory != null) {
             for (TradeOffers.Factory fact : factory) {
-                TradeOffer tradeOffer = fact.create(null, random);
+                TradeOffer tradeOffer = fact.create(entity, random);
                 if (tradeOffer != null) {
                     offers.add(tradeOffer);
                 }
@@ -42,13 +51,13 @@ public class WanderersCatalogue implements ModInitializer {
         TradeOffers.Factory[] factory2 = TradeOffers.WANDERING_TRADER_TRADES.get(2);
         if (factory2 != null) {
             for (TradeOffers.Factory fact : factory2) {
-                TradeOffer tradeOffer = fact.create(null, random);
+                TradeOffer tradeOffer = fact.create(entity, random);
                 if (tradeOffer != null) {
                     offers.add(tradeOffer);
                 }
             }
         }
-        return offers;
+        availableOffers = offers;
     }
 
     public static Identifier id(String path) {
