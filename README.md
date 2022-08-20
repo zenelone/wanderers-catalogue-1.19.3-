@@ -12,7 +12,7 @@ repositories {
 }
 
 dependencies {
-	modImplementation "amymialee:wandererscatalogue:1.0.1+1.19.x"
+	modImplementation "amymialee:wandererscatalogue:1.0.2+1.19.x"
 }
 ```
 
